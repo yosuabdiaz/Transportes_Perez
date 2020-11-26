@@ -189,5 +189,197 @@ $$ LANGUAGE sql;
 
 --SELECT insertar_facturaDistribuidor (6, 2, 9982848822, 50000, '02/10/2020', 7, 50000);
 ------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_facturaPorEntrega (id_entrega INTEGER, id_factura INTEGER) RETURNS void AS
+$$
+	INSERT INTO factura_x_entrega	(id_entrega, id_factura)
+	VALUES							(id_entrega, id_factura);
+$$ LANGUAGE sql;
+
+--SELECT insertar_facturaPorEntrega (3, 20);
+------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_facturaPorRecoger (id_recoger INTEGER, id_factura INTEGER) RETURNS void AS
+$$
+	INSERT INTO factura_x_recoger	(id_recoger, id_factura)
+	VALUES							(id_recoger, id_factura);
+$$ LANGUAGE sql;
+
+--SELECT insertar_facturaPorRecoger (2, 7);
+-----------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_facturaPorEnvio	(id_envio INTEGER, id_factura INTEGER) RETURNS void AS
+$$
+	INSERT INTO facturas_x_envio	(id_envio, id_factura)
+	VALUES							(id_envio, id_factura);
+$$ LANGUAGE sql;
+
+--SELECT insertar_facturaPorEnvio (4, 10);
+---------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_mantenimiento (id_taller INTEGER, id_vehiculo INTEGER, fecha TIMESTAMP WITHOUT TIME ZONE, monto NUMERIC, nota_general VARCHAR) RETURNS void AS
+$$
+	INSERT INTO mantenimiento	(id_taller, id_vehiculo, fecha, monto, nota_general)
+	VALUES						(id_taller, id_vehiculo, fecha, monto, nota_general);
+$$ LANGUAGE sql;
+
+--SELECT insertar_mantenimiento (1, 4, '02/01/2020', 100000,'excelente');
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_producto (descripcion VARCHAR, costo_envio NUMERIC) RETURNS void AS
+$$
+	INSERT INTO producto	(descripcion, costo_envio)
+	VALUES					(descripcion, costo_envio);
+$$ LANGUAGE sql;
+
+--SELECT insertar_producto ('Armario grande', 20000);
+----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_productoPorEnvio (id_envio INTEGER, id_producto INTEGER) RETURNS void AS
+$$
+	INSERT INTO producto_x_envio	(id_envio, id_producto)
+	VALUES							(id_envio, id_producto);
+$$ LANGUAGE sql;
+
+SELECT insertar_productoPorEnvio (4, 16);
+----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_provincia (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO provincia	(descripcion)
+	VALUES					(descripcion);
+$$ LANGUAGE sql;
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_punto (id_direccion INTEGER, descripcion VARCHAR, latitud FLOAT, longitud FLOAT, altitud FLOAT, es_inicio BOOLEAN, es_final BOOLEAN) RETURNS void AS
+$$
+	INSERT INTO punto	(id_direccion, descripcion, latitud, longitud, altitud, es_inicio, es_final)
+	VALUES				(id_direccion, descripcion, latitud, longitud, altitud, es_inicio, es_final)
+$$ LANGUAGE sql;
+
+--SELECT insertar_punto (8,'descripcion', 9.234521, -84.067533, 1173, true, false);
+-------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_puntoPorRuta (id_ruta INTEGER, id_punto INTEGER) RETURNS void AS
+$$
+	INSERT INTO puntos_x_ruta	(id_ruta, id_punto)
+	VALUES						(id_ruta, id_punto);
+$$ LANGUAGE sql;
+
+--SELECT insertar_puntoPorRuta (12, 1);
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_recoger (id_direccion INTEGER, id_distribuidor INTEGER, cantidadBultos NUMERIC, costo NUMERIC, fecha TIMESTAMP WITHOUT TIME ZONE, estatus VARCHAR) RETURNS void AS
+$$
+	INSERT INTO recoger	(id_direccion, id_distribuidor, bulto, costo, fecha, estatus)
+	VALUES				(id_direccion, id_distribuidor, cantidadBultos, costo, fecha, estatus);
+$$ LANGUAGE sql;
+
+--SELECT insertar_recoger (2, 2, 15, 15000, '12/11/2020', 'recogido');
+----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_ruta (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO ruta	(descripcion)
+	VALUES				(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_ruta ('Puntarenas sin peaje');
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_salario (id_empleado INTEGER, horas_trabajadas NUMERIC, pagoPorHora NUMERIC, fecha_pago TIMESTAMP WITHOUT TIME ZONE, horas_extra NUMERIC, pagoPorHoraExtra NUMERIC) RETURNS void AS
+$$
+	INSERT INTO salario	(id_empleado, horas_trabajadas, pago_x_hora, fecha_pago, horas_extra, pago_x_hora_extra)
+	VALUES				(id_empleado, horas_trabajadas, pagoPorHora, fecha_pago, horas_extra, pagoPorHoraExtra);
+$$ LANGUAGE sql;
+
+--SELECT insertar_salario (7, 45, 10000, '01/01/1999', 2, 1500);
+----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_taller (id_direccion INTEGER, descripcion VARCHAR, razon_comercial VARCHAR, razon_social VARCHAR, cedula_juridica VARCHAR) RETURNS void AS
+$$
+	INSERT INTO taller	(id_direccion, descripcion, razon_comercial, razon_social, cedula_juridica)
+	VALUES				(id_direccion, descripcion, razon_comercial, razon_social, cedula_juridica);
+$$ LANGUAGE sql;
+
+--SELECT insertar_taller (5,'taller5', 'RC5', 'RS5', '12234134');
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_telefonoBodega (id_bodega INTEGER, numero NUMERIC) RETURNS void AS
+$$
+	INSERT INTO telefono_bodega (id_bodega, numero)
+	VALUES						(id_bodega, numero);
+$$ LANGUAGE sql;
+
+--SELECT insertar_telefonoBodega	(3, 89989932);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_telefonoCliente (id_cliente INTEGER, numero NUMERIC) RETURNS void AS
+$$
+	INSERT INTO telefono_cliente	(id_cliente, numero)
+	VALUES							(id_cliente, numero);
+$$ LANGUAGE sql;
+
+--SELECT insertar_telefonoCliente (4, 84485668)
+----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_telefonoDistribuidor (id_distribuidor INTEGER, numero NUMERIC) RETURNS void AS
+$$
+	INSERT INTO telefono_distribuidor	(id_distribuidor, numero)
+	VALUES								(id_distribuidor, numero);
+$$ LANGUAGE sql;
+
+--SELECT insertar_telefonoDistribuidor (4, 88789885);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_telefonoEmpleado (id_empleado INTEGER, numero NUMERIC) RETURNS void AS
+$$
+	INSERT INTO telefono_empleado	(id_empleado, numero)
+	VALUES							(id_empleado, numero);
+$$ LANGUAGE sql;
+
+--SELECT insertar_telefonoEmpleado (7, 89559866);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_telefonoTaller (id_taller INTEGER, numero NUMERIC) RETURNS void AS
+$$
+	INSERT INTO telefono_taller	(id_taller, numero)
+	VALUES						(id_taller, numero);
+$$ LANGUAGE sql;
+
+--SELECT insertar_telefonoTaller (5, 22458994);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_tipoCombustible (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO tipo_combustible 	(descripcion)
+	VALUES							(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_tipoCombustible ('Electrico');
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_tipoEmpleado (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO tipo_empleado	(descripcion)
+	VALUES						(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_tipoEmpleado ('Tecnico')
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_tipoEnvio (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO tipo_envio	(descripcion)
+	VALUES					(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_tipoEnvio ('TipoEnvio3');
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_tipoMantenimiento (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO tipo_mantenimiento	(descripcion)
+	VALUES							(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_tipoMantenimiento ('alineacion');
+------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_tipoVehiculo (id_tipoCombustible INTEGER, descripcion VARCHAR, cantidadEjes NUMERIC, cantidadPasajeros NUMERIC, congelador BOOLEAN) RETURNS void AS
+$$
+	INSERT INTO tipo_vehiculo	(id_tipo_combustible, descripcion, eje, pasajeros, congelador)
+	VALUES						(id_tipoCombustible, descripcion, cantidadEjes, cantidadPasajeros, congelador);
+$$ LANGUAGE sql;
+
+--SELECT insertar_tipoVehiculo (3, 'moto', 2, 1, false);
+------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_vehiculo (id_tipoVehiculo INTEGER, matricula NUMERIC, estado VARCHAR, valor_fiscal NUMERIC, marca VARCHAR, modelo VARCHAR, marchamo BOOLEAN, revision_tecnica BOOLEAN, peso NUMERIC) RETURNS void AS
+$$
+	INSERT INTO vehiculo	(id_tipo_vehiculo, matricula, estado, valor_fiscal, marca, modelo, marchamo, revision_tecnica, peso)
+	VALUES					(id_tipoVehiculo, matricula, estado, valor_fiscal, marca, modelo, marchamo, revision_tecnica, peso);
+$$ LANGUAGE sql;
+
+--SELECT insertar_vehiculo (2, 33553521, 'excelente', 1000000, 'susuki', 'DR-Z400S', true, true, 1);
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
