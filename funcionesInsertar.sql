@@ -91,8 +91,7 @@ $$
 	VALUES				(id_envio, monto);
 $$ LANGUAGE sql;
 
-SELECT insertar_costo (8, 100000);
-SELECT * FROM costo
+--SELECT insertar_costo (8, 100000);
 ----------------------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insertar_departamento (nombre VARCHAR) RETURNS void AS
 $$
@@ -126,6 +125,69 @@ $$ LANGUAGE sql;
 
 --SELECT insertar_detalleMantenimiento (1, 3, 'cambio aceite', 10000, 'buena');
 --------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_direccion (id_codigo INTEGER, descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO direccion	(id_codigo, descripcion)
+	VALUES					(id_codigo, descripcion);
+$$ LANGUAGE sql;
 
+--SELECT insertar_direccion (8, 'direccion8');
+-------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_distribuidor (razon_comercial VARCHAR, cedula_juridica VARCHAR, razon_social VARCHAR, habitual BOOLEAN, id_direccion INTEGER) RETURNS void AS
+$$
+	INSERT INTO distribuidor	(razon_comercial, cedula_juridica, razon_social, habitual, id_direccion)
+	VALUES						(razon_comercial, cedula_juridica, razon_social, habitual, id_direccion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_distribuidor ('RC_distribuidor4', '12312234', 'RS_distribuidor4', false, 4);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_distrito (descripcion VARCHAR) RETURNS void AS
+$$
+	INSERT INTO distrito	(descripcion)
+	VALUES					(descripcion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_distrito ('Jaco');
+-------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_empleado (nombre VARCHAR, primerApellido VARCHAR, segundoApellido VARCHAR, fecha_nacimiento TIMESTAMP WITHOUT TIME ZONE, id_tipoEmpleado INTEGER, fecha_incorporacion TIMESTAMP WITHOUT TIME ZONE) RETURNS void AS
+$$
+	INSERT INTO empleado	(nombre, apellido1, apellido2, fecha_nacimiento, id_tipo_empleado, fecha_inicio)
+	VALUES					(nombre, primerApellido, segundoApellido, fecha_nacimiento, id_tipoEmpleado, fecha_incorporacion);
+$$ LANGUAGE sql;
+
+--SELECT insertar_empleado ('empleado 7', 'apellido1', 'apellido2', '05/09/1980', 3, '10/05/2020');
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_empleadoPorDepartamento (id_departamento INTEGER, id_empleado INTEGER) RETURNS void AS
+$$
+	INSERT INTO empleado_x_departamento	(id_departamento, id_empleado)
+	VALUES								(id_departamento, id_empleado);
+$$ LANGUAGE sql;
+
+--SELECT insertar_empleadoPorDepartamento(4, 7);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_entregaBodega (id_bodega INTEGER, cantidadBultos NUMERIC, estatus VARCHAR, fecha TIMESTAMP WITHOUT TIME ZONE) RETURNS void AS
+$$
+	INSERT INTO entrega_bodega	(id_bodega, bulto, estatus, fecha)
+	VALUES						(id_bodega, cantidadBultos, estatus, fecha);
+$$ LANGUAGE sql;
+
+--SELECT insertar_entregaBodega (3, 25, 'entregado', '10/10/2020');
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_envio (id_tipoEnvio INTEGER, fecha TIMESTAMP WITHOUT TIME ZONE, id_ruta INTEGER, id_vehiculo INTEGER, id_empleado INTEGER, id_bodega INTEGER, estado VARCHAR, ganancia NUMERIC) RETURNS void AS
+$$
+	INSERT INTO envio	(id_tipo_envio, fecha, id_ruta, id_vehiculo, id_empleado, id_bodega, estado, ganancia)
+	VALUES				(id_tipoEnvio, fecha, id_ruta, id_vehiculo, id_empleado, id_bodega, estado, ganancia);
+$$ LANGUAGE sql;
+
+--SELECT insertar_envio (1, '03/04/2020', 1, 1, 2, 1, 'entregado', 7000000);
+-----------------------------------------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION insertar_facturaDistribuidor (id_distribuidor INTEGER, id_cliente INTEGER, factura_electronica NUMERIC, monto NUMERIC, fecha TIMESTAMP WITHOUT TIME ZONE, cantidadBultos NUMERIC, ganancia NUMERIC) RETURNS void AS
+$$
+	INSERT INTO factura_distribuidor 	(id_distribuidor, id_cliente, factura_electronica, monto, fecha, bulto, ganancia)
+	VALUES								(id_distribuidor, id_cliente, factura_electronica, monto, fecha, cantidadBultos, ganancia);
+$$ LANGUAGE sql;
+
+--SELECT insertar_facturaDistribuidor (6, 2, 9982848822, 50000, '02/10/2020', 7, 50000);
+------------------------------------------------------------------------------------------------------------------------------------------
 
 
