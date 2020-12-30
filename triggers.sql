@@ -1098,3 +1098,51 @@ CREATE TRIGGER trigger_actualizacion_v_modelo
 	ON public.vehiculo
 	FOR EACH ROW
 	EXECUTE PROCEDURE mayuscula_V_modelo();
+
+
+CREATE OR REPLACE FUNCTION no_eliminar() RETURNS trigger AS
+$$
+	BEGIN
+		RAISE NOTICE 'No se permite borrar de esta tabla';
+		RETURN NULL;
+	END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_no_eliminar_cliente
+	BEFORE DELETE 
+	ON public.cliente
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();
+	
+CREATE TRIGGER trigger_no_eliminar_distribuidor 
+	BEFORE DELETE 
+	ON public.distribuidor
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();
+	
+	
+CREATE TRIGGER trigger_no_eliminar_envio
+	BEFORE DELETE 
+	ON public.envio
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();
+	
+	
+CREATE TRIGGER trigger_no_eliminar_producto
+	BEFORE DELETE 
+	ON public.producto
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();
+	
+CREATE TRIGGER trigger_no_eliminar_punto
+	BEFORE DELETE 
+	ON public.punto
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();	
+	
+CREATE TRIGGER trigger_no_eliminar_ruta
+	BEFORE DELETE 
+	ON public.ruta
+	FOR EACH ROW
+	EXECUTE PROCEDURE no_eliminar();
+	

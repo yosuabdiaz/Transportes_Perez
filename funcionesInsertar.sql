@@ -30,9 +30,9 @@ $$ LANGUAGE sql;
 
 --SELECT insertar_codigoPostal(2,7,4);
 ----------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION insertar_convenio(id_cliente INTEGER, descrripcion VARCHAR, monto NUMERIC, fecha TIMESTAMP WITHOUT TIME ZONE, activo BOOLEAN) RETURNS void AS
+CREATE OR REPLACE FUNCTION insertar_convenio(id_cliente INTEGER, descripcion VARCHAR, monto NUMERIC, fecha TIMESTAMP WITHOUT TIME ZONE, activo BOOLEAN) RETURNS void AS
 $$
-	INSERT INTO convenio(id_cliente, descripcion, monto)
+	INSERT INTO convenio(id_cliente, descripcion, monto,fecha,activo) VALUES (id_cliente,descripcion,monto,fecha,activo);
 $$ LANGUAGE sql;
 
 
@@ -235,7 +235,7 @@ $$
 	VALUES							(id_envio, id_producto);
 $$ LANGUAGE sql;
 
-SELECT insertar_productoPorEnvio (4, 16);
+--SELECT insertar_productoPorEnvio (4, 16);
 ----------------------------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION insertar_provincia (descripcion VARCHAR) RETURNS void AS
 $$
