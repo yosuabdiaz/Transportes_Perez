@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP_EncomiendasTortuguero", "ERP_EncomiendasTortuguero.csproj", "{5C11D802-0AC1-4016-A41D-7591040ADE9C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C11D802-0AC1-4016-A41D-7591040ADE9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C11D802-0AC1-4016-A41D-7591040ADE9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C11D802-0AC1-4016-A41D-7591040ADE9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C11D802-0AC1-4016-A41D-7591040ADE9C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {469B3831-0283-44FA-9AA9-1E0F8FBEC9F5}
+	EndGlobalSection
+EndGlobal
