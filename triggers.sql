@@ -247,7 +247,7 @@ CREATE TRIGGER mayuscula_Producto
 	BEFORE INSERT 
 	ON producto
 	FOR EACH ROW
-	EXECUTE PROCEDURE mayuscula_Mantenimiento();
+	EXECUTE PROCEDURE mayuscula_Producto();
 
 CREATE OR REPLACE FUNCTION mayuscula_Provincia() RETURNS trigger AS
 $$
@@ -443,7 +443,7 @@ $$
 		resultado text;
 	BEGIN
 		resultado := upper(NEW.estado);
-		NEW.descripcion := resultado;
+		NEW.estado := resultado;
 		resultado := upper(NEW.marca);
 		NEW.marca := resultado;
 		resultado := upper(NEW.modelo);
