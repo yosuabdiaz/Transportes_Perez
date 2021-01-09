@@ -201,579 +201,211 @@ $$ LANGUAGE sql;
 
 --SELECT actualizar_envio (7, 1, '2021-1-8', 1, 1, 2, 1, 'entregado', 900000);
 ----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-/*
-
-									MODIFICAR LAS QUE SIGUEN
-
-*/
-
-
-
-
 --TABLA FACTURA DISTRIBUIDOR
 
-CREATE OR REPLACE FUNCTION actualizar_idDistribuidorFD (identificador INTEGER, idDistribuidor INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_factura_distribuidor (pId INTEGER, pId_distribuidor INTEGER, pId_cliente INTEGER, pFactura_electronica NUMERIC, pMonto NUMERIC, pFecha TIMESTAMP WITHOUT TIME ZONE, pBulto NUMERIC, pGanancia NUMERIC)RETURNS void AS
 $$
-	UPDATE factura_distribuidor SET id_distribuidor = idDistribuidor WHERE id_factura = identificador;
+	UPDATE factura_distribuidor SET (id_distribuidor, id_cliente, factura_electronica, monto, fecha, bulto, ganancia) = (pId_distribuidor, pId_cliente, pFactura_electronica, pMonto, pFecha, pBulto, pGanancia) WHERE id_factura = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idDistribuidorFD (20, 5);
-
-CREATE OR REPLACE FUNCTION actualizar_idClienteFD (identificador INTEGER, idCliente INTEGER)RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET id_cliente = idCliente WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idClienteFD (20, 3);
-
-CREATE OR REPLACE FUNCTION actualizar_facturaElectronicaFD (identificador INTEGER, factElectronica NUMERIC)RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET factura_electronica = factElectronica WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_facturaElectronicaFD (20, 3232);
-
-CREATE OR REPLACE FUNCTION actualizar_montoFD (identificador INTEGER, pMonto NUMERIC)RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET monto = pmonto WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_montoFD (20, 1500);
-
-CREATE OR REPLACE FUNCTION actualizar_fechaFD (identificador INTEGER, pFecha TIMESTAMP WITHOUT TIME ZONE)RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET fecha = pFecha WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_fechaFD (20, '2020-11-29');
-
-CREATE OR REPLACE FUNCTION actualizar_cantidadBultosFD (identificador INTEGER, cantidad NUMERIC) RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET bulto = cantidad WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_CantidadBultosFD (20, 8);
-
-CREATE OR REPLACE FUNCTION actualizar_gananciaFD (identificador INTEGER, pGanancia NUMERIC)RETURNS void AS
-$$
-	UPDATE factura_distribuidor SET ganancia = pGanancia WHERE id_factura = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_gananciaFD (20, 500);
+--SELECT actualizar_factura_distribuidor (19, 5, 2, 4, 110000, '2021-1-9', 6, 50000);
 ---------------------------------------------------------------------------------------------------------------------
+
 --TABLA FACTURA X ENTREGA
-CREATE OR REPLACE FUNCTION actualizar_idEntregaFxEnt (identificador INTEGER, idEntrega INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_factura_x_entrega (pId INTEGER, pId_entrega INTEGER, pId_factura INTEGER)RETURNS void AS
 $$
-	UPDATE factura_x_entrega SET id_entrega = idEntrega WHERE id_linea = identificador;
+	UPDATE factura_x_entrega SET (id_entrega, id_factura) = (pId_entrega, pId_factura) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idEntregaFxEnt (7, 2);
+--SELECT actualizar_factura_x_entrega (6, 2, 6);
 
-CREATE OR REPLACE FUNCTION actualizar_idFacturaFxEnt (identificador INTEGER, idFactura INTEGER) RETURNS void AS
-$$
-	UPDATE factura_x_entrega SET id_factura = idFactura WHERE id_linea = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idFacturaFxEnt (7, 19);
 -------------------------------------------------------------------------------------------------------------------------------
 --TABLA FACTURA X RECOGER
-CREATE OR REPLACE FUNCTION actualizar_idRecogerFxR (identificador INTEGER, idRecoger INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_factura_x_recoger (pId INTEGER, pId_recoger INTEGER, pId_factura INTEGER)RETURNS void AS
 $$
-	UPDATE factura_x_recoger SET id_recoger = idRecoger WHERE id_linea = identificador;
+	UPDATE factura_x_recoger SET (id_recoger, id_factura) = (pId_recoger, pId_factura) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idRecogerFxR (2, 1);
 
-CREATE OR REPLACE FUNCTION actualizar_idFacturaFxR (identificador INTEGER, idFactura INTEGER) RETURNS void AS
-$$
-	UPDATE factura_x_recoger SET id_factura = idFactura WHERE id_linea = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idFacturaFxR (2, 6);
+--SELECT actualizar_factura_x_recoger (1, 1,9);
 -------------------------------------------------------------------------------------------------------------------------------------
 --TABLA FACTURA X ENVIO
-CREATE OR REPLACE FUNCTION actualizar_idEnvioFxEnv (identificador INTEGER, idEnvio INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_factura_x_envio (pId INTEGER, pId_envio INTEGER, pId_factura INTEGER)RETURNS void AS
 $$
-	UPDATE facturas_x_envio SET id_envio = idEnvio WHERE id_linea = identificador;
+	UPDATE facturas_x_envio SET (id_envio, id_factura) = (pId_envio, pId_factura) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idEnvioFxEnv (10, 3);
-
-CREATE OR REPLACE FUNCTION actualizar_idFacturaFxEnv (identificador INTEGER, idFactura INTEGER)RETURNS void AS
-$$
-	UPDATE facturas_x_envio SET id_factura = idFactura WHERE id_linea = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idFacturaFxEnv (10, 9);
+SELECT actualizar_factura_x_envio (9, 3,9);
 ----------------------------------------------------------------------------------------------------------------------------
 --TABLA MANTENIMIENTO
-CREATE OR REPLACE FUNCTION actualizar_idTallerMantenimiento (identificador INTEGER, idTaller INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_mantenimiento (pId INTEGER, pId_taller INTEGER, pId_vehiculo INTEGER, pFecha TIMESTAMP WITHOUT TIME ZONE, pMonto NUMERIC, pNota_general VARCHAR)RETURNS void AS
 $$
-	UPDATE mantenimiento SET id_taller = idTaller WHERE id_mantenimiento = identificador;
+	UPDATE mantenimiento SET (id_taller, id_vehiculo, fecha, monto, nota_general) = (pId_taller, pId_vehiculo, pFecha, pMonto, pNota_general) WHERE id_mantenimiento = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idTallerMantenimiento(4, 2);
-
-CREATE OR REPLACE FUNCTION actualizar_idVehiculoMantenimiento (identificador INTEGER, idVehiculo INTEGER)RETURNS void AS
-$$
-	UPDATE mantenimiento SET id_vehiculo = idVehiculo WHERE id_mantenimiento = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idVehiculoMantenimiento (4, 5);
-
-CREATE OR REPLACE FUNCTION actualizar_fechaMantenimiento (identificador INTEGER, pFecha TIMESTAMP WITHOUT TIME ZONE)RETURNS void AS
-$$
-	UPDATE mantenimiento SET fecha = pFecha WHERE id_mantenimiento = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_fechaMantenimiento (4, '2020-11-30');
-
-CREATE OR REPLACE FUNCTION actualizar_montoMantenimiento (identificador INTEGER, pMonto NUMERIC)RETURNS void AS
-$$
-	UPDATE mantenimiento SET monto = pMonto WHERE id_mantenimiento = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_montoMantenimiento (4, 50000);
-
-CREATE OR REPLACE FUNCTION actualizar_notaMantenimiento (identificador INTEGER, nota VARCHAR)RETURNS void AS
-$$
-	UPDATE mantenimiento SET nota_general = nota WHERE id_mantenimiento = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_notaMantenimiento (4, 'bueno');
+--SELECT actualizar_mantenimiento(3, 1, 3, '2021-01-9', 100000, 'bueno');
 ----------------------------------------------------------------------------------------------------------------------------
 --TABLA PRODUCTO
-CREATE OR REPLACE FUNCTION actualizar_descripcionProducto (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_producto (pId INTEGER, pDescripcion VARCHAR, pCosto_envio NUMERIC)RETURNS void AS
 $$
-	UPDATE producto SET descripcion = pDescripcion WHERE id_producto = identificador;
+	UPDATE producto SET (descripcion, costo_envio) = (pDescripcion, pCosto_envio) WHERE id_producto = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionProducto (16, 'Armario mediano');
-
-CREATE OR REPLACE FUNCTION actualizar_costoEnvioProducto (identificador INTEGER, costoEnvio NUMERIC)RETURNS void AS
-$$
-	UPDATE producto SET costo_envio = costoEnvio WHERE id_producto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_costoEnvioProducto (16, 10000);
+--SELECT actualizar_producto (15, 'Armario grande', 50000);
 --------------------------------------------------------------------------------------------------------------------------------
 --TABLA PRODUCTO X ENVIO
-CREATE OR REPLACE FUNCTION actualizar_idEnvioPxE (identificador INTEGER, idEnvio INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_producto_x_envio (pId INTEGER, pId_envio INTEGER, pId_producto INTEGER)RETURNS void AS
 $$
-	UPDATE producto_x_envio SET id_envio = idEnvio WHERE id_linea = identificador;
+	UPDATE producto_x_envio SET (id_envio, id_producto) = (pId_envio, pId_producto) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idEnvioPxE (10, 3);
-
-CREATE OR REPLACE FUNCTION actualizar_idProductoPxE (identificador INTEGER, idProducto INTEGER)RETURNS void AS
-$$
-	UPDATE producto_x_envio SET id_producto = idProducto WHERE id_linea = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idProductoPxE (10, 15);
-------------------------------------------------------------------------------------------------------------------------------
+--SELECT actualizar_producto_x_envio (9, 3, 8);
+------------------------------------------------------------------------------------------------------------------------------------------
 --TABLA PROVINCIA
-CREATE OR REPLACE FUNCTION actualizar_nombreProvincia (identificador INTEGER, nombre VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_provincia (pId INTEGER, pNombre VARCHAR)RETURNS void AS
 $$
-	UPDATE provincia SET descripcion = nombre WHERE id_provincia = identificador;
+	UPDATE provincia SET descripcion = pNombre WHERE id_provincia = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_nombreProvincia (4, 'Limón');
+
+--SELECT actualizar_provincia (4, 'Limón');
 -------------------------------------------------------------------------------------------------------------------------------
 -- TABLA PUNTO
-CREATE OR REPLACE FUNCTION actualizar_idDireccionPunto (identificador INTEGER, idDireccion INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_punto (pId INTEGER, pId_direccion INTEGER, pDescripcion VARCHAR, pLatitud FLOAT, pLongitud FLOAT, pAltitud FLOAT, pEs_inicio BOOLEAN, pEs_final BOOLEAN)RETURNS void AS
 $$
-	UPDATE punto SET id_direccion = idDireccion WHERE id_punto = identificador;
+	UPDATE punto SET (id_direccion, descripcion, latitud, longitud, altitud, es_inicio, es_final) = (pId_direccion, pDescripcion, pLatitud, pLongitud, pAltitud, pEs_inicio, pEs_final) WHERE id_punto = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idDireccionPunto (8, 7);
-
-CREATE OR REPLACE FUNCTION actualizar_descripcionPunto (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
-$$
-	UPDATE punto SET descripcion = pDescripcion WHERE id_punto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_descripcionPunto (8, 'desc');
-
-CREATE OR REPLACE FUNCTION actualizar_latitudPunto (identificador INTEGER, coordenada FLOAT)RETURNS void AS
-$$
-	UPDATE punto SET latitud = coordenada WHERE id_punto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_latitudPunto (8, 0.0);
-
-CREATE OR REPLACE FUNCTION actualizar_longitudPunto (identificador INTEGER, coordenada FLOAT)RETURNS void AS
-$$
-	UPDATE punto SET longitud = coordenada WHERE id_punto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_longitudPunto (8, 0.0);
-
-CREATE OR REPLACE FUNCTION actualizar_altitudPunto (identificador INTEGER, coordenada FLOAT)RETURNS void AS
-$$
-	UPDATE punto SET altitud = coordenada WHERE id_punto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_altitudPunto (8, 0.0);
-
-CREATE OR REPLACE FUNCTION actualizar_inicialPunto (identificador INTEGER, esInicio BOOLEAN)RETURNS void AS
-$$
-	UPDATE punto SET es_inicio = esInicio WHERE id_punto = identificador;
-$$ LANGUAGE sql; 
-
---SELECT actualizar_inicialPunto (8, false);
-
-CREATE OR REPLACE FUNCTION actualizar_finalPunto (identificador INTEGER, esFinal BOOLEAN)RETURNS void AS
-$$
-	UPDATE punto SET es_final = esFinal WHERE id_punto = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_finalPunto (8, true);
+--SELECT actualizar_punto (7, 7, 'descripcion', 9.976545, -84.43432, 1144, false, false);
 -----------------------------------------------------------------------------------------------------------------------------
 --TABLA PUNTOS X RUTA
-CREATE OR REPLACE FUNCTION actualizar_idRutaPxR (identificador INTEGER, idRuta INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_puntos_x_ruta (pId INTEGER, pId_ruta INTEGER, pId_punto INTEGER)RETURNS void AS
 $$
-	UPDATE puntos_x_ruta SET id_ruta = idRuta WHERE id_linea = identificador;
+	UPDATE puntos_x_ruta SET (id_ruta, id_punto) = (pId_ruta, pId_punto) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idRutaPxR (9, 11);
 
-CREATE OR REPLACE FUNCTION actualizar_idPuntoPxR (identificador INTEGER, idPunto INTEGER)RETURNS void AS
-$$
-	UPDATE puntos_x_ruta SET id_punto = idPunto WHERE id_linea = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idPuntoPxR (9, 6);
+SELECT actualizar_puntos_x_ruta (8, 2, 2);
 ------------------------------------------------------------------------------------------------------------------------------
+
 --TABLA RECOGER
-CREATE OR REPLACE FUNCTION actualizar_idDireccionRecoger (identificador INTEGER, idDireccion INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_recoger (pId INTEGER, pId_direccion INTEGER, pId_distribuidor INTEGER, pBulto NUMERIC, pCosto NUMERIC, pFecha TIMESTAMP WITHOUT TIME ZONE, pEstatus VARCHAR)RETURNS void AS
 $$
-	UPDATE recoger SET id_direccion = idDireccion WHERE id_recoger = identificador;
+	UPDATE recoger SET (id_direccion, id_distribuidor, bulto, costo, fecha, estatus) = (pId_direccion, pId_distribuidor, pBulto, pCosto, pFecha, pEstatus) WHERE id_recoger = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idDireccionRecoger (2, 1);
-
-CREATE OR REPLACE FUNCTION actualizar_idDistribuidorRecoger (identificador INTEGER, idDistribuidor INTEGER)RETURNS void AS
-$$
-	UPDATE recoger SET id_distribuidor = idDistribuidor WHERE id_recoger = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idDistribuidorRecoger(2, 3);
-
-CREATE OR REPLACE FUNCTION actualizar_bultosRecoger (identificador INTEGER, cantidad NUMERIC)RETURNS void AS
-$$
-	UPDATE recoger SET bulto = cantidad WHERE id_recoger = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_bultosRecoger (2, 20);
-
-CREATE OR REPLACE FUNCTION actualizar_fechaRecoger (identificador INTEGER, pFecha TIMESTAMP WITHOUT TIME ZONE)RETURNS void AS
-$$
-	UPDATE recoger SET fecha = pFecha WHERE id_recoger = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_fechaRecoger (2, '2020-11-30');
-
-CREATE OR REPLACE FUNCTION actualizar_estatusRecoger (identificador INTEGER, pEstatus VARCHAR)RETURNS void AS
-$$
-	UPDATE recoger SET estatus = pEstatus WHERE id_recoger = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_estatusRecoger (2, 'pendiente');
+--SELECT actualizar_recoger (1, 3, 1, 10, 8000, '2005-01-01', 'recogido');
 ----------------------------------------------------------------------------------------------------------------------------------
 --TABLA RUTA
-CREATE OR REPLACE FUNCTION actualizar_descripcionRuta (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_ruta (pId INTEGER, pDescripcion VARCHAR)RETURNS void AS
 $$
-	UPDATE ruta SET descripcion = pDescripcion WHERE id_ruta = identificador;
+	UPDATE ruta SET descripcion = pDescripcion WHERE id_ruta = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionRuta (16, 'Ruta16');
+--SELECT actualizar_ruta (15, 'Ruta15');
 ------------------------------------------------------------------------------------------------------------------------------
+
 --TABLA SALARIO
-CREATE OR REPLACE FUNCTION actualizar_idEmpleadoSalario (identificador INTEGER, idEmpleado INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_salario (pId INTEGER, pId_empleado INTEGER, pHoras_trabajadas NUMERIC, pPago_x_hora NUMERIC, pFecha_pago TIMESTAMP WITHOUT TIME ZONE, pHoras_extra NUMERIC, pPago_x_hora_extra NUMERIC)RETURNS void AS
 $$
-	UPDATE salario SET id_empleado = idEmpleado WHERE id_salario = identificador;
+	UPDATE salario SET (id_empleado, horas_trabajadas, pago_x_hora, fecha_pago, horas_extra, pago_x_hora_extra) = (pId_empleado, pHoras_trabajadas, pPago_x_hora, pFecha_pago, pHoras_extra, pPago_x_hora_extra) WHERE id_salario = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idEmpleadoSalario (7, 7);
-
-CREATE OR REPLACE FUNCTION actualizar_horasTrabajadasSalario (identificador INTEGER, horas NUMERIC)RETURNS void AS
-$$
-	UPDATE salario SET horas_trabajadas = horas WHERE id_salario = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_horasTrabajadasSalario (7, 20);
-
-CREATE OR REPLACE FUNCTION actualizar_pagoHoraSalario (identificador INTEGER, pago NUMERIC)RETURNS void As
-$$
-	UPDATE salario SET pago_x_hora = pago WHERE id_salario = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_pagoHoraSalario (7, 5000); 
-
-CREATE OR REPLACE FUNCTION actualizar_fechaPagoSalario (identificador INTEGER, fecha TIMESTAMP WITHOUT TIME ZONE)RETURNS void AS
-$$
-	UPDATE salario SET fecha_pago = fecha WHERE id_salario = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_fechaPagoSalario (7, '2000-01-01');
-
-CREATE OR REPLACE FUNCTION actualizar_horasExtraSalario (identificador INTEGER, horas NUMERIC)RETURNS void AS
-$$ 
-	UPDATE salario SET horas_extra = horas WHERE id_salario = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_horasExtraSalario (7, 1);
-
-CREATE OR REPLACE FUNCTION actualizar_pagoHoraExtraSalario (identificador INTEGER, monto NUMERIC)RETURNS void AS
-$$
-	UPDATE salario SET pago_x_hora_extra = monto WHERE id_salario = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_pagoHoraExtraSalario (7, 2000);
+--SELECT actualizar_salario (6, 6, 43, 10000, '1999-01-01', 2, 15000);
 -----------------------------------------------------------------------------------------------------------------------------
 --TABLA TALLER
-CREATE OR REPLACE FUNCTION actualizar_idDireccionTaller (identificador INTEGER, idDireccion INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_taller (pId INTEGER, pId_direccion INTEGER, pDescripcion VARCHAR, pRazon_comercial VARCHAR, pRazon_social VARCHAR, pCedula_juridica VARCHAR)RETURNS void AS
 $$
-	UPDATE taller SET id_direccion = idDireccion WHERE id_taller = identificador;
+	UPDATE taller SET (id_direccion, descripcion, razon_comercial, razon_social, cedula_juridica) = (pId_direccion, pDescripcion, pRazon_comercial, pRazon_social, pCedula_juridica) WHERE id_taller = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idDireccionTaller (4, 5);
-
-CREATE OR REPLACE FUNCTION actualizar_descripcionTaller (identificador INTEGER, pDescripcion VARCHAR) RETURNS void AS
-$$
-	UPDATE taller SET descripcion = pDescripcion WHERE id_taller = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_descripcionTaller (5, 'Taller5');
-
-CREATE OR REPLACE FUNCTION actualizar_razonComercialTaller (identificador INTEGER, razonComercial VARCHAR)RETURNS void AS
-$$
-	UPDATE taller SET razon_comercial = razonComercial WHERE id_taller = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_razonComercialTaller (5, 'RazonCom5');
-
-CREATE OR REPLACE FUNCTION actualizar_razonSocialTaller (identificador INTEGER, razonSocial VARCHAR)RETURNS void AS
-$$
-	UPDATE taller SET razon_social = razonSocial WHERE id_taller = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_razonSocialTaller (5, 'RazonSoc5');
-
-CREATE OR REPLACE FUNCTION actualizar_cedulaJuridicaTaller (identificador INTEGER, cedula VARCHAR)RETURNS void AS
-$$
-	UPDATE taller SET cedula_juridica = cedula WHERE id_taller = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_cedulaJuridicaTaller (5, '5555555');
+--SELECT actualizar_taller (4,4, 'taller4', 'RC4', 'RS4', '4444444');
 ----------------------------------------------------------------------------------------
 --TABLA TELEFONO BODEGA
-CREATE OR REPLACE FUNCTION actualizar_idBodegaTelBodega (identificador INTEGER, idBodega INTEGER) RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_telefono_bodega (pId INTEGER, pId_bodega INTEGER, pNumero NUMERIC) RETURNS void AS
 $$
-	UPDATE telefono_bodega SET id_bodega = idBodega WHERE id_telefono = identificador;
+	UPDATE telefono_bodega SET (id_bodega, numero) = (pId_bodega, pNumero) WHERE id_telefono = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idBodegaTelBodega (3, 2);
-
-CREATE OR REPLACE FUNCTION actualizar_numeroTelBodega (identificador INTEGER, num NUMERIC)RETURNS void AS
-$$
-	UPDATE telefono_bodega SET numero = num WHERE id_telefono = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_numeroTelBodega (3, 123456);
+--SELECT actualizar_telefono_bodega (2, 2, 22454885);
 -----------------------------------------------------------------------------------------------------
 --TABLA TELEFONO CLIENTE
-CREATE OR REPLACE FUNCTION actualizar_idClienteTelBodega (identificador INTEGER, idCliente INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_telefono_cliente (pId INTEGER, pId_cliente INTEGER, pNumero NUMERIC)RETURNS void AS
 $$
-	UPDATE telefono_cliente SET id_cliente = idCliente WHERE id_telefono = identificador;
+	UPDATE telefono_cliente SET (id_cliente, numero) = (pId_cliente, pNumero) WHERE id_telefono = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idClienteTelBodega (4,5);
-
-CREATE OR REPLACE FUNCTION actualizar_numeroTelCliente (identificador INTEGER, num NUMERIC)RETURNS void AS
-$$
-	UPDATE telefono_cliente SET numero = num WHERE id_telefono = identificador;
-$$ LANGUAGE sql;
-
-SELECT actualizar_numeroTelCliente (4, 85593023);
+--SELECT actualizar_telefono_cliente (3, 3, 25854565);
 ------------------------------------------------------------------------------------------------------
 --TABLA TELEFONO DISTRIBUIDOR
-CREATE OR REPLACE FUNCTION actualizar_idDistribuidorTelDistribuidor (identificador INTEGER, idDistribuidor INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_telefono_distribuidor (pId INTEGER, pId_distribuidor INTEGER, pNumero NUMERIC)RETURNS void AS
 $$
-	UPDATE telefono_distribuidor SET id_distribuidor = idDistribuidor WHERE id_telefono = identificador;
+	UPDATE telefono_distribuidor SET (id_distribuidor, numero) = (pId_distribuidor, pNumero) WHERE id_telefono = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idDistribuidorTelDistribuidor (4,5);
-
-CREATE OR REPLACE FUNCTION actualizar_numeroTelDistribuidor (identificador INTEGER, num NUMERIC)RETURNS void AS
-$$
-	UPDATE telefono_distribuidor SET numero = num WHERE id_telefono = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_numeroTelDistribuidor (4, 85593022);
+--SELECT actualizar_telefono_distribuidor (3,1, 26656885);
 ---------------------------------------------------------------------------------------------------------------
 --TABLA TELEFONO EMPLEADO
-CREATE OR REPLACE FUNCTION actualizar_idEmpleadoTelEmpleado (identificador INTEGER, idEmpleado INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_telefono_empleado (pId INTEGER, pId_empleado INTEGER, pNumero NUMERIC)RETURNS void AS
 $$
-	UPDATE telefono_empleado SET id_empleado = idEmpleado WHERE id_telefono = identificador;
+	UPDATE telefono_empleado SET (id_empleado, numero) = (pId_empleado, pNumero) WHERE id_telefono = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idEmpleadoTelEmpleado (7,7);
-
-CREATE OR REPLACE FUNCTION actualizar_numeroTelEmpleado (identificador INTEGER, num NUMERIC)RETURNS void AS
-$$
-	UPDATE telefono_empleado SET numero = num WHERE id_telefono = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_numeroTelempleado (4, 85593020);
+--SELECT actualizar_telefono_empleado (6,6,84455455);
 --------------------------------------------------------------------------------------------------------------
 --TABLA TELEFONO TALLER
-CREATE OR REPLACE FUNCTION actualizar_idTallerTelTaller (identificador INTEGER, idTaller INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_telefono_taller (pId INTEGER, pId_taller INTEGER, pNumero NUMERIC)RETURNS void AS
 $$
-	UPDATE telefono_taller SET id_taller = idTaller WHERE id_telefono = identificador;
+	UPDATE telefono_taller SET (id_taller, numero) = (pId_taller, pNumero) WHERE id_telefono = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idTallerTelTaller (5,5);
 
-CREATE OR REPLACE FUNCTION actualizar_numeroTelTaller (identificador INTEGER, num NUMERIC)RETURNS void AS
-$$
-	UPDATE telefono_taller SET numero = num WHERE id_telefono = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_numeroTelTaller (5, 22451923);
+--SELECT actualizar_telefono_taller (4, 4, 87787878);
 ---------------------------------------------------------------------------------------------------------
 --TABLA TIPO COMBUSTIBLE
-CREATE OR REPLACE FUNCTION actualizar_descripcionTipoCombustible (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_tipo_combustible (pId INTEGER, pDescripcion VARCHAR)RETURNS void AS
 $$
-	UPDATE tipo_combustible SET descripcion= pDescripcion WHERE id_tipo_combustible = identificador;
+	UPDATE tipo_combustible SET descripcion= pDescripcion WHERE id_tipo_combustible = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionTipoCombustible (6, 'electrico')
+--SELECT actualizar_tipo_combustible (5, 'plus y gas');
 --------------------------------------------------------------------------------------------------------------
 --TABLA TIPO EMPLEADO
-CREATE OR REPLACE FUNCTION actualizar_descripcionTipoEmpleado (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_tipo_empleado (pId INTEGER, pDescripcion VARCHAR)RETURNS void AS
 $$
-	UPDATE tipo_empleado SET descripcion= pDescripcion WHERE id_tipo_empleado = identificador;
+	UPDATE tipo_empleado SET descripcion= pDescripcion WHERE id_tipo_empleado = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionTipoEmpleado (5, 'tipo6');
+--SELECT actualizar_tipo_empleado (4, 'jefe');
 --------------------------------------------------------------------------------------------
 --TABLA TIPO ENVIO
-CREATE OR REPLACE FUNCTION actualizar_descripcionTipoEnvio (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_tipo_envio (pId INTEGER, pDescripcion VARCHAR)RETURNS void AS
 $$
-	UPDATE tipo_envio SET descripcion= pDescripcion WHERE id_tipo_envio = identificador;
+	UPDATE tipo_envio SET descripcion= pDescripcion WHERE id_tipo_envio = pId;
 $$ LANGUAGE sql;
 
-SELECT actualizar_descripcionTipoEnvio (3, 'tipo3');
+--SELECT actualizar_tipo_envio (2, 'Nicaragua');
 --------------------------------------------------------------------------------------------
 --TABLA TIPO MANTENIMIENTO
-CREATE OR REPLACE FUNCTION actualizar_descripcionTipoMantenimiento (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_tipo_mantenimiento (pId INTEGER, pDescripcion VARCHAR)RETURNS void AS
 $$
-	UPDATE tipo_mantenimiento SET descripcion= pDescripcion WHERE id_tipo_mantenimiento = identificador;
+	UPDATE tipo_mantenimiento SET descripcion= pDescripcion WHERE id_tipo_mantenimiento = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionTipoMantenimiento (13, 'tipo13');
+--SELECT actualizar_tipo_mantenimiento (12, 'frenos de disco');
 ----------------------------------------------------------------------------------------------------
 --TABLA TIPO VEHICULO
-CREATE OR REPLACE FUNCTION actualizar_descripcionTipoVehiculo (identificador INTEGER, pDescripcion VARCHAR)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_tipo_vehiculo (pId INTEGER, pId_tipo_combustible INTEGER, pDescripcion VARCHAR, pEje NUMERIC, pPasajeros NUMERIC, pCongelador BOOLEAN)RETURNS void AS
 $$
-	UPDATE tipo_vehiculo SET descripcion= pDescripcion WHERE id_tipo_vehiculo = identificador;
+	UPDATE tipo_vehiculo SET (id_tipo_combustible, descripcion, eje, pasajeros, congelador)= (pId_tipo_combustible, pDescripcion, pEje, pPasajeros, pCongelador) WHERE id_tipo_vehiculo = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_descripcionTipoVehiculo (2, 'Camion grande');
-
-CREATE OR REPLACE FUNCTION actualizar_idTipoCombTV (identificador INTEGER, idTipoComb INTEGER)RETURNS void AS
-$$
-	UPDATE tipo_vehiculo SET id_tipo_combustible = idTipoComb WHERE id_tipo_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_idTipoCombTV (2, 3);
-
-CREATE OR REPLACE FUNCTION actualizar_ejesTipoVehiculo (identificador INTEGER, cantidadEjes NUMERIC)RETURNS void AS
-$$
-	UPDATE tipo_vehiculo SET eje = cantidadEjes WHERE id_tipo_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_ejesTipoVehiculo (2, 6);
-
-CREATE OR REPLACE FUNCTION actualizar_pasajerosTipoVehiculo (identificador INTEGER, cantidadPasajeros NUMERIC)RETURNS void AS
-$$
-	UPDATE tipo_vehiculo SET pasajeros = cantidadPasajeros WHERE id_tipo_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_pasajerosTipoVehiculo (2, 2);
-
-CREATE OR REPLACE FUNCTION actualizar_congeladorTipoVehiculo (identificador INTEGER, pCongelador BOOLEAN)RETURNS void AS
-$$
-	UPDATE tipo_vehiculo SET congelador = pCongelador WHERE id_tipo_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_congeladorTipoVehiculo(2, true);
+--SELECT actualizar_tipo_vehiculo (1, 1, 'Camion', 4, 3, false);
 -------------------------------------------------------------------------------------------------
 --TABLA VEHICULO
-CREATE OR REPLACE FUNCTION actualizar_idTipoVehiculoV (identificador INTEGER, idTipoVehiculo INTEGER)RETURNS void AS
+CREATE OR REPLACE FUNCTION actualizar_vehiculo (pId INTEGER, pId_tipo_vehiculo INTEGER, pMatricula NUMERIC, pEstado VARCHAR, pValor_fiscal NUMERIC, pMarca VARCHAR, pModelo VARCHAR, pMarchamo BOOLEAN, pRevision_tecnica BOOLEAN, pPeso NUMERIC)RETURNS void AS
 $$
-	UPDATE vehiculo SET id_tipo_vehiculo = idTipoVehiculo WHERE id_vehiculo = identificador;
+	UPDATE vehiculo SET (id_tipo_vehiculo, matricula, estado, valor_fiscal, marca, modelo, marchamo, revision_tecnica, peso) = (pId_tipo_vehiculo, pMatricula, pEstado, pValor_fiscal, pMarca, pModelo, pMarchamo, pRevision_tecnica, pPeso) WHERE id_vehiculo = pId;
 $$ LANGUAGE sql;
 
---SELECT actualizar_idTipoVehiculoV (5, 1);
-
-CREATE OR REPLACE FUNCTION actualizar_matriculaVehiculo (identificador INTEGER, pMatricula NUMERIC)RETURNS void AS
-$$
-	UPDATE vehiculo SET matricula = pMatricula WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_matriculaVehiculo (5, 55485);
-
-CREATE OR REPLACE FUNCTION actualizar_estadoVehiculo (identificador INTEGER, pEstado VARCHAR)RETURNS void AS
-$$
-	UPDATE vehiculo SET estado = pEstado WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_estadoVehiculo (5, 'bueno');
-
-CREATE OR REPLACE FUNCTION actualizar_valorFiscalVehiculo (identificador INTEGER, valorFiscal NUMERIC)RETURNS void AS
-$$
-	UPDATE vehiculo SET valor_fiscal = valorFiscal WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_valorFiscalVehiculo (5, 500000);
-
-CREATE OR REPLACE FUNCTION actualizar_marcaVehiculo (identificador INTEGER, pMarca VARCHAR)RETURNS void AS
-$$
-	UPDATE vehiculo SET marca = pMarca WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_marcaVehiculo(5, 'Mercedez Benz');
-
-CREATE OR REPLACE FUNCTION actualizar_modeloVehiculo (identificador INTEGER, pModelo VARCHAR)RETURNS void AS
-$$
-	UPDATE vehiculo SET modelo = pModelo WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_modeloVehiculo (5, 'Actros');
-
-CREATE OR REPLACE FUNCTION actualizar_marchamoVehiculo (identificador INTEGER, pMarchamo BOOLEAN)RETURNS void AS
-$$
-	UPDATE vehiculo SET marchamo = pMarchamo WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_marchamoVehiculo (5, false);
-
-CREATE OR REPLACE FUNCTION actualizar_revisionTecnicaVehiculo (identificador INTEGER, revisionTecnica BOOLEAN)RETURNS void AS
-$$
-	UPDATE vehiculo SET revision_tecnica = revisionTecnica WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_revisionTecnicaVehiculo(5, false);
-
-CREATE OR REPLACE FUNCTION actualizar_pesoVehiculo (identificador INTEGER, pPeso NUMERIC)RETURNS void AS
-$$
-	UPDATE vehiculo SET peso = pPeso WHERE id_vehiculo = identificador;
-$$ LANGUAGE sql;
-
---SELECT actualizar_pesoVehiculo (5, 9);
+--SELECT actualizar_vehiculo (4, 1, 34565, 'Excelente', 70000000, 'nissan', 'y2', true, true, 7);
