@@ -433,10 +433,10 @@ ALTER TABLE correo_taller
 
 --CHECK
 ALTER TABLE envio
-	ADD CONSTRAINT ch_estado_envio CHECK (estado IN ('pendiente', 'camino', 'entregado'));
+	ADD CONSTRAINT ch_estado_envio CHECK (estado IN ('PENDIENTE', 'CAMINO', 'ENTREGADO'));
 
 ALTER TABLE recoger
-	ADD CONSTRAINT ch_estatus_recoger CHECK (estatus IN ('pendiente', 'camino', 'recogido'));
+	ADD CONSTRAINT ch_estatus_recoger CHECK (estatus IN ('PENDIENTE', 'CAMINO', 'RECOGIDO'));
 
 ALTER TABLE entrega_bodega
-	ADD CONSTRAINT ch_estatus_bodega CHECK (estatus IN ('pendiente', 'camino', 'entregado'));
+	ADD CONSTRAINT ch_estatus_bodega CHECK (estatus IN ('PENDIENTE', 'CAMINO', 'ENTREGADO'));
