@@ -1,3 +1,14 @@
+CREATE OR REPLACE FUNCTION eliminar_bodega(id INTEGER) RETURNS VOID AS
+$$
+	DELETE FROM bodega WHERE id_bodega = id;
+$$ LANGUAGE SQL;
+
+CREATE OR REPLACE FUNCTION eliminar_canton(id INTEGER) RETURNS VOID AS
+$$
+	DELETE FROM canton WHERE id_canton = id;
+$$ LANGUAGE SQL;
+
+
 CREATE OR REPLACE FUNCTION eliminar_cliente(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM cliente WHERE id_cliente = id;
