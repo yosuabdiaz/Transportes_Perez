@@ -1,0 +1,10 @@
+SELECT * FROM public.correo_bodega 	 	WHERE descripcion LIKE 'correo%';
+SELECT * FROM public.correo_distibuidor WHERE descripcion LIKE 'correo%';
+SELECT * FROM public.correo_cliente		WHERE descripcion LIKE 'correo%';
+SELECT * FROM public.correo_empleado    WHERE descripcion LIKE 'correo%';
+SELECT * FROM public.correo_taller      WHERE descripcion LIKE 'correo%';
+SELECT * FROM public.detalle_costo      WHERE descripcion LIKE 'COMIDA%';
+SELECT * FROM public.entrega_bodega 	  WHERE fecha >= (CURRENT_DATE - INTERVAL '80' DAY);
+SELECT * FROM public.envio    			  WHERE fecha >= (CURRENT_DATE - INTERVAL '80' DAY);
+SELECT * FROM public.factura_distribuidor WHERE fecha >= (CURRENT_DATE - INTERVAL '80' DAY);
+SELECT * FROM public.mantenimiento    	  WHERE fecha >= (CURRENT_DATE - INTERVAL '80' DAY);
