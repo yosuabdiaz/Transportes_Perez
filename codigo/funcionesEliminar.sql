@@ -24,11 +24,16 @@ $$
 	DELETE FROM convenio WHERE id_convenio = id;
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION eliminar_convenio_x_envio(pid_envio INTEGER,pid_convenio INTEGER) RETURNS VOID AS 
+CREATE OR REPLACE FUNCTION eliminar_convenio_x_envio(pid_linea INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM convenio_x_envio WHERE id_linea = pid_linea;
+$$ LANGUAGE SQL;
+
+/*CREATE OR REPLACE FUNCTION eliminar_convenio_x_envio(pid_envio INTEGER,pid_convenio INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM convenio_x_envio WHERE (id_convenio = pid_convenio AND id_envio = pid_envio);
 $$ LANGUAGE SQL;
-
+*/
 CREATE OR REPLACE FUNCTION eliminar_correo_bodega(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM correo_bodega WHERE (id_correo = id);
