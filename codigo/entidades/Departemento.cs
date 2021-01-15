@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ERP_EncomiendasTortuguero.Entidad
+{
+    public class Departemento
+    {
+        public int DepartementoID { get; set; }
+        public String nombre { get; set; } //el tipo de dato decimal es equivalente en sql al tipo de dato numeric
+    }
+}
