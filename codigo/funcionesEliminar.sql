@@ -74,16 +74,23 @@ $$
 	DELETE FROM departamento WHERE (id_departamento = id);
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION eliminar_departamento_x_bodega(pid_linea INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM departamento_x_bodega WHERE id_lineaa = pid_linea;
+$$ LANGUAGE SQL;
+
+/*
 CREATE OR REPLACE FUNCTION eliminar_departamento_x_bodega(pid_bodega INTEGER,pid_departamento INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM departamento_x_bodega WHERE (id_bodega = pid_bodega AND id_departamento = pid_departamento);
 $$ LANGUAGE SQL;
-
+*/
+/*
 CREATE OR REPLACE FUNCTION eliminar_departamento_x_bodega(pid_bodega INTEGER,pid_departamento INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM departamento_x_bodega WHERE (id_bodega = pid_bodega AND id_departamento = pid_departamento);
 $$ LANGUAGE SQL;
-
+*/
 CREATE OR REPLACE FUNCTION eliminar_detalle_costo(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM detalle_costo WHERE (id_detalle_costo = id);
