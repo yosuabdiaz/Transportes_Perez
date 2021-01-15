@@ -122,10 +122,16 @@ $$
 $$ LANGUAGE SQL;
 
 
-CREATE OR REPLACE FUNCTION eliminar_empleado_x_departamento(pid_depa INTEGER,pid_empleado INTEGER) RETURNS VOID AS 
+CREATE OR REPLACE FUNCTION eliminar_empleado_x_departamento(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM empleado_x_departamento WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+/*CREATE OR REPLACE FUNCTION eliminar_empleado_x_departamento(pid_depa INTEGER,pid_empleado INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM empleado_x_departamento WHERE (id_empleado = pid_empleado AND id_departamento = pid_depa);
 $$ LANGUAGE SQL;
+*/
 
 CREATE OR REPLACE FUNCTION eliminar_entrega(id INTEGER) RETURNS VOID AS 
 $$
