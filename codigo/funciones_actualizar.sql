@@ -15,7 +15,7 @@ $$
 	UPDATE canton SET descripcion = pDescripcion WHERE id_canton = pId;
 $$ LANGUAGE sql;
 
-SELECT * FROM canton
+SELECT * FROM canton;
 
 --SELECT actualizar_Canton (7, 'Garabito');
 ---------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ $$
 	UPDATE convenio_x_envio SET (id_envio, id_convenio) = (pId_envio, pId_convenio) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
-SELECT * from convenio_x_envio
+SELECT * from convenio_x_envio;
 
 --SELECT actualizar_convenio_x_envio(9, 1, 3);
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -236,7 +236,6 @@ $$
 	UPDATE facturas_x_envio SET (id_envio, id_factura) = (pId_envio, pId_factura) WHERE id_linea = pId;
 $$ LANGUAGE sql;
 
-SELECT actualizar_factura_x_envio (9, 3,9);
 ----------------------------------------------------------------------------------------------------------------------------
 --TABLA MANTENIMIENTO
 CREATE OR REPLACE FUNCTION actualizar_mantenimiento (pId INTEGER, pId_taller INTEGER, pId_vehiculo INTEGER, pFecha TIMESTAMP WITHOUT TIME ZONE, pMonto NUMERIC, pNota_general VARCHAR)RETURNS void AS
@@ -286,7 +285,6 @@ $$
 $$ LANGUAGE sql;
 
 
-SELECT actualizar_puntos_x_ruta (8, 2, 2);
 ------------------------------------------------------------------------------------------------------------------------------
 
 --TABLA RECOGER
