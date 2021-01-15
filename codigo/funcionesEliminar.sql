@@ -116,6 +116,12 @@ $$
 	DELETE FROM distrito WHERE (id_distrito = id);
 $$ LANGUAGE SQL;
 
+CREATE OR REPLACE FUNCTION eliminar_empleado(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM empleado WHERE id_empleado = pid;
+$$ LANGUAGE SQL;
+
+
 CREATE OR REPLACE FUNCTION eliminar_empleado_x_departamento(pid_depa INTEGER,pid_empleado INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM empleado_x_departamento WHERE (id_empleado = pid_empleado AND id_departamento = pid_depa);
