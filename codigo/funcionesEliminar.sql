@@ -174,7 +174,7 @@ $$ LANGUAGE SQL;
 
 CREATE OR REPLACE FUNCTION eliminar_factura_x_envio(pid INTEGER) RETURNS VOID AS 
 $$
-	DELETE FROM factura_x_envio WHERE id_linea = pid;
+	DELETE FROM facturas_x_envio WHERE id_linea = pid;
 $$ LANGUAGE SQL;
 
 /*CREATE OR REPLACE FUNCTION eliminar_facturas_x_envio(pid_factura INTEGER, pid_envio INTEGER) RETURNS VOID AS 
