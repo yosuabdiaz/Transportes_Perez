@@ -214,11 +214,17 @@ $$
 	DELETE FROM punto WHERE (id_punto = id);
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION eliminar_puntos_x_ruta(pid_punto INTEGER, pid_ruta INTEGER) RETURNS VOID AS 
+CREATE OR REPLACE FUNCTION eliminar_puntos_x_ruta(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM puntos_x_ruta WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+
+/*CREATE OR REPLACE FUNCTION eliminar_puntos_x_ruta(pid_punto INTEGER, pid_ruta INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM puntos_x_ruta WHERE (id_ruta = pid_ruta AND id_punto = pid_punto);
 $$ LANGUAGE SQL;
-
+*/
 CREATE OR REPLACE FUNCTION eliminar_recoger(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM recoger WHERE (id_recoger = id);
