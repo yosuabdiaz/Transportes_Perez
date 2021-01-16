@@ -192,11 +192,18 @@ $$
 	DELETE FROM producto WHERE (id_producto = id);
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION eliminar_producto_x_envio(pid_producto INTEGER, pid_envio INTEGER) RETURNS VOID AS 
+
+CREATE OR REPLACE FUNCTION eliminar_producto_x_envio(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM producto_x_envio WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+
+/*CREATE OR REPLACE FUNCTION eliminar_producto_x_envio(pid_producto INTEGER, pid_envio INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM producto_x_envio WHERE (id_producto = pid_producto AND id_envio = pid_envio);
 $$ LANGUAGE SQL;
-
+*/
 CREATE OR REPLACE FUNCTION eliminar_provincia(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM provincia WHERE (id_provincia = id);
