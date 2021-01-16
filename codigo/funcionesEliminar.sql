@@ -148,21 +148,40 @@ $$
 	DELETE FROM factura_distribuidor WHERE (id_factura = id);
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION eliminar_factura_x_entrega(pid_factura INTEGER, pid_entrega INTEGER) RETURNS VOID AS 
+
+CREATE OR REPLACE FUNCTION eliminar_factura_x_entrega(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM factura_x_entrega WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+
+/*CREATE OR REPLACE FUNCTION eliminar_factura_x_entrega(pid_factura INTEGER, pid_entrega INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM factura_x_entrega WHERE (id_factura = pid_factura AND id_entrega = pid_entrega);
 $$ LANGUAGE SQL;
+*/
 
-CREATE OR REPLACE FUNCTION eliminar_factura_x_recoger(pid_factura INTEGER, pid_recoger INTEGER) RETURNS VOID AS 
+CREATE OR REPLACE FUNCTION eliminar_factura_x_recoger(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM factura_x_recoger WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+/*CREATE OR REPLACE FUNCTION eliminar_factura_x_recoger(pid_factura INTEGER, pid_recoger INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM factura_x_recoger WHERE (id_factura = pid_factura AND id_recoger = pid_recoger);
 $$ LANGUAGE SQL;
+*/
 
-CREATE OR REPLACE FUNCTION eliminar_facturas_x_envio(pid_factura INTEGER, pid_envio INTEGER) RETURNS VOID AS 
+CREATE OR REPLACE FUNCTION eliminar_factura_x_envio(pid INTEGER) RETURNS VOID AS 
+$$
+	DELETE FROM factura_x_envio WHERE id_linea = pid;
+$$ LANGUAGE SQL;
+
+/*CREATE OR REPLACE FUNCTION eliminar_facturas_x_envio(pid_factura INTEGER, pid_envio INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM facturas_x_envio WHERE (id_factura = pid_factura AND id_envio = pid_envio);
 $$ LANGUAGE SQL;
-
+*/
 CREATE OR REPLACE FUNCTION eliminar_mantenimiento(id INTEGER) RETURNS VOID AS 
 $$
 	DELETE FROM mantenimiento WHERE (id_mantenimiento = id);
