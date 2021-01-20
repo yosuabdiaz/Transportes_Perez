@@ -14,8 +14,8 @@ VALUES      ('Tortuguero');
 INSERT INTO tipo_envio(descripcion)
 VALUES      ('Nicaragua');
 
-DELETE FROM producto WHERE id_producto != 1
-ALTER SEQUENCE public.producto_id_producto_seq RESTART WITH 1
+--DELETE FROM producto WHERE id_producto != 1
+--ALTER SEQUENCE public.producto_id_producto_seq RESTART WITH 1
 
 INSERT INTO producto(descripcion,costo_envio)
 VALUES 	    ('Cama matrimonial',20000);
@@ -685,26 +685,26 @@ VALUES (1,'correo');
 --DELETE FROM envio WHERE id_envio >= 1
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'09/01/2021',1,1,2,1,'entregado',250000);
+VALUES (1,'09/01/2021',1,1,2,1,'ENTREGADO',250000);
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'08/01/2021',1,1,2,1,'entregado',320000);
+VALUES (1,'08/01/2021',1,1,2,1,'ENTREGADO',320000);
 
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'07/01/2021',1,1,2,1,'entregado',450000);
+VALUES (1,'07/01/2021',1,1,2,1,'ENTREGADO',450000);
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'06/01/2021',1,1,2,1,'entregado',450000);
+VALUES (1,'06/01/2021',1,1,2,1,'ENTREGADO',450000);
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'05/01/2021',1,1,2,1,'entregado',450000);
+VALUES (1,'05/01/2021',1,1,2,1,'ENTREGADO',450000);
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'04/01/2021',1,1,2,1,'entregado',400000);
+VALUES (1,'04/01/2021',1,1,2,1,'ENTREGADO',400000);
 
 INSERT INTO envio(id_tipo_envio,fecha,id_ruta,id_vehiculo,id_empleado,id_bodega,estado,ganancia)
-VALUES (1,'03/01/2021',1,1,2,1,'entregado',500000)
+VALUES (1,'03/01/2021',1,1,2,1,'ENTREGADO',500000)
 
 --ALTER SEQUENCE costo_id_costo_seq RESTART WITH 1
 INSERT INTO costo(id_envio,monto)
